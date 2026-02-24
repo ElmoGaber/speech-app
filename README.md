@@ -68,6 +68,7 @@ A production-quality **Speech App** built with **Next.js**, **TypeScript**, and 
 ├── public/          # Static assets (Icons, Images)
 ├── styles/          # Global CSS and Tailwind configurations
 └── tsconfig.json    # TypeScript configuration
+```
 🏗️ Architecture & Development
 Clean Components: UI components are isolated in the components/ directory for maximum reusability.
 
