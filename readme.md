@@ -1,76 +1,95 @@
-# 🚀 مشروع: تشغيل واجهة LiquidAI (LFM2-Audio-1.5B)
+# 🎙️ Speech App
 
-هذا الدليل يشرح كيفية تشغيل الواجهة الرسومية (Gradio Demo) لموديل `LiquidAI/LFM2-Audio-1.5B` على Google Colab، مع التركيز على حل 3 مشاكل رئيسية:
-1.  متطلبات إصدار بايثون 3.12.
-2.  الحصول على لينك عام (Public URL).
-3.  فشل الاتصال اللحظي (WebRTC).
+[![Next.js](https://img.shields.io/badge/Next.js-14+-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![pnpm](https://img.shields.io/badge/Maintained%20with-pnpm-orange?logo=pnpm)](https://pnpm.io/)
 
-## ⚠️ المتطلبات الإجبارية
-
-1.  **GPU (كارت شاشة):** **إجباري**. يجب استخدام جلسة (Runtime) تحتوي على GPU (مثل `T4` أو `V100`).
-2.  **إصدار بايثون (Python):** **إجباري (3.12 أو أحدث)**. هذا الموديل **لن يعمل** على إصدارات بايثون 3.10 أو 3.11 الافتراضية.
+A production-quality **Speech App** built with **Next.js**, **TypeScript**, and **Tailwind CSS**. This application provides seamless speech-based features, real-time audio interactions, and intelligent voice responses with a modern, responsive UI.
 
 ---
 
-## 🛠️ خطوات التشغيل على Google Colab
+## ✨ Features
 
-اتبع هذه الخطوات **بالترتيب** في خلايا (Cells) منفصلة داخل النوت بوك.
-
-### الخطوة 1: اختيار الـ GPU وإصدار بايثون
-
-1.  من القائمة العلوية، اذهب إلى `Runtime` (وقت التشغيل) > `Change runtime type` (تغيير نوع وقت التشغيل).
-2.  في `Hardware accelerator`، اختر **`T4 GPU`**.
-3.  في `Python version`، اختر **`Python 3.12`** (أو أحدث إصدار متاح). 
-4.  اضغط `Save`.
-
-### الخطوة 2: تثبيت المكتبات (Installation)
-
-في **الخلية الأولى**، قم بتثبيت المكتبة مع "الإضافات" (extras) الخاصة بالديمو، بالإضافة إلى `flash-attn` لتسريع الـ GPU.
-
-```bash
-# 1. تثبيت المكتبة مع إضافات الديمو
-# (نحن نستخدم [demo] عشان ننزل gradio و fastrtc)
-!pip install "liquid-audio[demo]"
-
-# 2. تثبيت flash-attn لتسريع الـ GPU
-!pip install flash-attn --no-build-isolation
-
-print("✅ تم تثبيت جميع المكتبات بنجاح")
-```
-
-### الخطوة 3: تشغيل الواجهة (Gradio Demo)
-
-في **الخلية الثانية**، قم بتشغيل الديمو. نحن نستخدم `GRADIO_SHARE=true` لإجبار البرنامج على إنشاء **لينك عام (Public URL)**، لأن اللينك المحلي (`127.0.0.1`) لن يعمل على كولاب.
-
-```bash
-# GRADIO_SHARE=true هو السر لإنشاء لينك عام
-!GRADIO_SHARE=true liquid-audio-demo
-```
-
-### الخطوة 4: فتح الديمو
-
-عند تشغيل الخلية السابقة، سيبدأ تحميل الموديل (1.5B) على الـ GPU. بعد انتهاء التحميل (قد يستغرق 5-10 دقائق)، سيظهر لك لينكان في الناتج:
-
-```
-* Running on local URL:  [http://127.0.0.1:7860](http://127.0.0.1:7860)
-* Running on public URL: https://[ حروف-وارقام-عشوائية ].gradio.live
-```
-
-**اضغط على اللينك الثاني (Public URL) الذي ينتهي بـ `.gradio.live` لفتح الواجهة.**
+* **🗣️ Real-Time Speech Recognition**: Instant conversion of spoken words into text using high-performance web APIs.
+* **🎙️ Voice Commands**: Integrated system to interact with the application and trigger actions using voice.
+* **🧩 Reusable Components**: Modular UI architecture built for scalability and easy maintenance.
+* **⚓ Custom Hooks**: Efficient state management and complex logic abstraction for audio processing.
+* **📱 Responsive Design**: Optimized for a flawless experience across desktop, tablet, and mobile devices.
+* **🎨 Advanced Theming**: Clean and modern UI powered by Tailwind CSS and PostCSS.
 
 ---
 
-## 🚨 استكشاف الأخطاء وإصلاحها (Troubleshooting)
+## 🛠️ Tech Stack
 
-* **الخطأ: `Requires-Python >=3.12`**
-    * **السبب:** لم تقم باختيار بايثون 3.12.
-    * **الحل:** ارجع للخطوة 1 وتأكد من تغيير إصدار البايثون.
+| Technology | Usage |
+| :--- | :--- |
+| **Next.js** | React Framework (App Router) |
+| **TypeScript** | Static Typing & Code Quality |
+| **Tailwind CSS** | Utility-first Styling |
+| **Shadcn/UI** | Accessible UI Components |
+| **pnpm** | Fast & Disk-efficient Package Management |
 
-* **الخطأ: `127.0.0.1 refused to connect` (اللينك مش بيفتح)**
-    * **السبب:** أنت تضغط على اللينك المحلي (Local URL).
-    * **الحل:** تأكد من أنك استخدمت `GRADIO_SHARE=true` في الخطوة 3، واضغط على اللينك العام (Public URL) الذي ينتهي بـ `.gradio.live`.
+---
 
-* **الخطأ: `ERROR:asyncio:Exception in callback...` أو `AttributeError: 'NoneType' object has no attribute 'sendto'`**
-    * **السبب:** هذا يعني فشل اتصال **WebRTC** (الاتصال اللحظي بالميكروفون) بسبب قيود النتورك في كولاب.
-    * **الحل (السهل):** **لا تستخدم زر "Record" (تسجيل) في الواجهة.**
-    * **الحل (البديل):** استخدم زر **"Upload file" (رفع ملف)**. قم بتسجيل ملف صوتي قصير (MP3 أو WAV) على جهازك، ثم ارفعه للواجهة. سيعمل الموديل بشكل صحيح.
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** (Latest LTS recommended)
+- **pnpm** installed (`npm install -g pnpm`)
+
+### Installation
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/ElmoGaber/speech-app.git](https://github.com/ElmoGaber/speech-app.git)
+    cd speech-app
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    pnpm dev
+    ```
+    *Open [http://localhost:3000](http://localhost:3000) to view the result.*
+
+---
+```
+## 📂 Project Structure
+
+```text
+├── app/             # Next.js App Router (Pages & Layouts)
+├── components/      # Reusable UI components (Shadcn/UI)
+├── hooks/           # Custom React hooks (Audio/Speech logic)
+├── lib/             # Utility functions and shared helpers
+├── public/          # Static assets (Icons, Images)
+├── styles/          # Global CSS and Tailwind configurations
+└── tsconfig.json    # TypeScript configuration
+```
+## 🏗️ Architecture & Development
+Clean Components: UI components are isolated in the components/ directory for maximum reusability.
+
+Logic Abstraction: All speech recognition and audio handling logic are encapsulated within hooks/ to keep the UI layer clean.
+
+Performance: Leveraging Next.js server-side capabilities and optimized client-side rendering for low-latency interactions.
+
+## 🧪 Deployment & Build
+To create an optimized production build:
+
+```Bash
+pnpm build
+```
+To start the production server:
+
+
+```Bash
+pnpm start
+```
+## 📝 License
+This project is licensed under the MIT License - see the LICENSE
+ file for details.
+
+Developed with ❤️ by ElmoGaber
